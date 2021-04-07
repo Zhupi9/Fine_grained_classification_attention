@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Flask_ML</title>
+    <link rel="shortcut icon" href="#"/>
+    <script type="text/javascript">
+        function upload(){
+        var formData = new FormData($("#uploadForm")[0]);  //创建一个forData
+        $.ajax({
+            url: "/upload",
+            data: formData,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                document.getElementById("img1").src = data.img_path;
+                document.getElementById("cate").innerText = data.cate;
+            },
+            error: function() {
+                alert("error!");
+        }
+      })
+}
+
+    </script>
+</head>
+<body>
+    <form id="uploadForm" action="/upload" enctype="multipart/form-data" method="post">
+        <input type="file" name="file" id="pic_img" style="margin-top: 20px;">
+        <br>
+        <p><input type="button" value="submit" onclick="upload()"></p>
+    </form>
+    <img src="" id="img1">
+    <p id="cate"></p>
+</body>
+
+</html>
